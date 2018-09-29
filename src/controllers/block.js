@@ -10,14 +10,14 @@ exports.get = (req, h) => {
     .then((block) => {
 
 
-        return block;
+        return JSON.parse(block);
 
 
     })
     .catch((err) => {
 
-        
-        return { err: err.message };
+        let data = { err: err.message };
+        return h.response(data).code(404);
         
 
     });
@@ -29,18 +29,19 @@ exports.get = (req, h) => {
 exports.post = (req, h) => {
 
 
-    return req.server.app.blockchain.addBlock(req.payload)
+    return req.server.app.blockchain.addBlock(req.payload.body)
     .then((block) => {
 
 
-        return block;
+        return h.response(JSON.parse(block)).code(201);
 
 
     })
     .catch((err) => {
 
 
-        return { err: err };
+        let data =  { err: err };
+        return h.response(data).code(400);
 
 
     });
