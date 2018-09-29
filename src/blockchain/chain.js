@@ -109,7 +109,7 @@ class Blockchain{
     // Add new block
     addBlock(newBlockData){
 		return new Promise((resolve, reject) => {
-            if (newBlockData === "" || newBlockData === null) {
+            if (!newBlockData || newBlockData === "" || newBlockData === null) {
                 reject("Cannot add empty body to the blockchain");
                 return;
             }
